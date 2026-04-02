@@ -6,7 +6,7 @@ function Sidebar({ active }: { active: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
-    { label: 'Nutrition', href: '/coach/nutrition', icon: '🥗' },
+    { label: 'Nutrition', href: '/coach/nutrition-overview', icon: '🥗' },
   ]
   return (
     <div style={{ width: '240px', background: '#0F2044', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0', flexShrink: 0, position: 'fixed', left: 0, top: 0, bottom: 0 }}>

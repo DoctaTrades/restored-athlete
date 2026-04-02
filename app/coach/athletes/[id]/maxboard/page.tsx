@@ -185,15 +185,10 @@ export default function MaxBoardPage({ params }: { params: { id: string } }) {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '28px' }}>
           <div>
             <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0F2044' }}>{athleteName} — Max Board</h1>
-            <p style={{ fontSize: '13px', color: '#94A3B8', marginTop: '2px' }}>All current 1RMs</p>
+            <p style={{ fontSize: '13px', color: '#94A3B8', marginTop: '2px' }}>Read-only view — athletes log their own maxes</p>
           </div>
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button onClick={() => setShowCalcModal(true)} style={{ padding: '9px 18px', background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '8px', fontSize: '13px', fontWeight: 600, color: '#475569', cursor: 'pointer' }}>
-              Calc from Reps
-            </button>
-            <button onClick={() => setShowAddModal(true)} style={{ padding: '9px 18px', background: '#B8891A', border: 'none', borderRadius: '8px', fontSize: '13px', fontWeight: 700, color: '#FFFFFF', cursor: 'pointer' }}>
-              + Add Max
-            </button>
+          <div style={{ fontSize: '12px', color: '#94A3B8', fontStyle: 'italic' }}>
+            Athletes log their own maxes — you can mark competition lifts below.
           </div>
         </div>
 
