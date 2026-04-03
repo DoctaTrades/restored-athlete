@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { format } from 'date-fns'
+import CoachSidebar from '@/components/CoachSidebar'
 
 const SUGGESTION_ICONS: Record<string, string> = {
   reduce_load: '⬇️',
@@ -39,27 +40,10 @@ export default async function CoachSuggestionsPage() {
   const card = { background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' as const }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F4F6F9' }}>
-      <nav style={{ height: '60px', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', background: '#FFFFFF', position: 'sticky' as const, top: 0, zIndex: 50 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '32px', height: '32px', background: '#0F2044', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#B8891A' }}>RA</div>
-            <span style={{ fontSize: '14px', fontWeight: 700, color: '#0F2044' }}>Restored Athlete</span>
-          </div>
-          <div style={{ width: '1px', height: '16px', background: '#E2E8F0' }} />
-          {[
-            { label: 'Athletes', href: '/coach/dashboard' },
-            { label: 'Programming', href: '/coach/programming' },
-            { label: 'Nutrition', href: '/coach/nutrition-overview' },
-            { label: 'Settings', href: '/coach/settings' },
-          ].map(link => (
-            <a key={link.href} href={link.href} style={{ fontSize: '13px', fontWeight: 500, color: '#64748B', textDecoration: 'none' }}>{link.label}</a>
-          ))}
-        </div>
-        <a href="/auth/signout" style={{ fontSize: '12px', color: '#94A3B8', textDecoration: 'none', padding: '5px 12px', border: '1px solid #E2E8F0', borderRadius: '6px' }}>Sign out</a>
-      </nav>
-
-      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '32px 20px' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
+      <CoachSidebar active="Suggestions" />
+      <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
+      <div style={{ maxWidth: '800px' }}>
         <div style={{ marginBottom: '28px' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0F2044' }}>
             Program Suggestions
@@ -143,6 +127,8 @@ export default async function CoachSuggestionsPage() {
             )}
           </>
         )}
+      </div>
+      </div>
       </div>
     </div>
   )

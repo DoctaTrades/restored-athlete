@@ -126,10 +126,11 @@ export default async function AthleteDashboard() {
         </div>
 
         {/* Quick links */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '12px' }}>
           {[
             { label: 'My Nutrition', sub: 'Macros & meal plan', href: '/athlete/nutrition', icon: '🥗', bg: '#B8891A' },
             { label: 'My Maxes', sub: '1RMs & percentages', href: '/athlete/maxes', icon: '🏆', bg: '#0F2044' },
+            { label: 'Messages', sub: 'Chat with your coach', href: '/athlete/messages', icon: '💬', bg: '#16A34A' },
           ].map(item => (
             <a key={item.href} href={item.href} style={{ ...card, padding: '18px 20px', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '14px' }}>
               <div style={{ width: '40px', height: '40px', borderRadius: '10px', background: item.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>{item.icon}</div>

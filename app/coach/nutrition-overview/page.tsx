@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { format, subDays, startOfDay } from 'date-fns'
+import CoachSidebar from '@/components/CoachSidebar'
 
 const COMPLIANCE_LABELS: Record<string, { label: string; color: string; bg: string; score: number }> = {
   over:           { label: 'Over',         color: '#DC2626', bg: 'rgba(220,38,38,0.08)',   score: 0 },
@@ -98,28 +99,9 @@ export default async function CoachNutritionOverview() {
   const card = { background: '#FFFFFF', border: '1px solid #E2E8F0', borderRadius: '12px', overflow: 'hidden' as const }
 
   return (
-    <div style={{ minHeight: '100vh', background: '#F4F6F9' }}>
-      {/* Nav */}
-      <nav style={{ height: '60px', padding: '0 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', background: '#FFFFFF', position: 'sticky' as const, top: 0, zIndex: 50 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '32px', height: '32px', background: '#0F2044', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', fontWeight: 800, color: '#B8891A' }}>RA</div>
-            <span style={{ fontSize: '14px', fontWeight: 700, color: '#0F2044' }}>Restored Athlete</span>
-          </div>
-          <div style={{ width: '1px', height: '16px', background: '#E2E8F0' }} />
-          {[
-            { label: 'Athletes', href: '/coach/dashboard' },
-            { label: 'Programming', href: '/coach/programming' },
-            { label: 'Nutrition', href: '/coach/nutrition-overview', active: true },
-            { label: 'Settings', href: '/coach/settings' },
-          ].map(link => (
-            <a key={link.href} href={link.href} style={{ fontSize: '13px', fontWeight: (link as any).active ? 700 : 500, color: (link as any).active ? '#B8891A' : '#64748B', textDecoration: 'none', borderBottom: (link as any).active ? '2px solid #B8891A' : '2px solid transparent', paddingBottom: '2px' }}>{link.label}</a>
-          ))}
-        </div>
-        <a href="/auth/signout" style={{ fontSize: '12px', color: '#94A3B8', textDecoration: 'none', padding: '5px 12px', border: '1px solid #E2E8F0', borderRadius: '6px' }}>Sign out</a>
-      </nav>
-
-      <div style={{ padding: '32px', maxWidth: '1100px', margin: '0 auto' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
+      <CoachSidebar active="Nutrition" />
+      <div style={{ marginLeft: '240px', flex: 1, padding: '32px', maxWidth: 'calc(100vw - 240px)' }}>
         <div style={{ marginBottom: '28px' }}>
           <h1 style={{ fontSize: '26px', fontWeight: 800, color: '#0F2044' }}>Nutrition Overview</h1>
           <p style={{ fontSize: '13px', color: '#94A3B8', marginTop: '2px' }}>Compliance tracking across all athletes — {format(new Date(), 'MMMM d, yyyy')}</p>

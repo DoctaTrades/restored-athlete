@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import CoachSidebar from '@/components/CoachSidebar'
 
 interface Message {
   id: string
@@ -47,7 +48,7 @@ function timeAgo(dateStr: string) {
   return `${Math.floor(hrs / 24)}d ago`
 }
 
-function Sidebar({ active }: { active: string }) {
+: { active: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
@@ -216,7 +217,7 @@ export default function CoachMessages() {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
-      <Sidebar active="Messages" />
+      <CoachSidebar active="Messages" />
 
       <div style={{ marginLeft: '240px', flex: 1, display: 'flex', height: '100vh', overflow: 'hidden' }}>
         {/* Thread list */}

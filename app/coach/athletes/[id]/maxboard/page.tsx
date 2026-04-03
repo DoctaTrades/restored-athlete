@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { format } from 'date-fns'
+import CoachSidebar from '@/components/CoachSidebar'
 
 interface Exercise {
   id: string
@@ -30,14 +31,13 @@ interface Athlete {
 
 const PERCENTAGES = [50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
 
-function Sidebar({ active, athleteId, athleteName }: { active: string; athleteId: string; athleteName: string }) {
+: { active: string; athleteId: string; athleteName: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
   ]
   const athleteLinks = [
-    { label: 'Program', href: `/coach/athletes/${athleteId}/program`, icon: '📅' },
-    { label: 'Max Board', href: `/coach/athletes/${athleteId}/maxboard`, icon: '🏆' },
+{ label: 'Max Board', href: `/coach/athletes/${athleteId}/maxboard`, icon: '🏆' },
     { label: 'Nutrition', href: `/coach/athletes/${athleteId}/nutrition`, icon: '🥗' },
   ]
   return (
@@ -170,7 +170,7 @@ export default function MaxBoardPage({ params }: { params: { id: string } }) {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
-      <Sidebar active="Max Board" athleteId={params.id} athleteName={athleteName} />
+      <CoachSidebar active="Max Board" athleteId={params.id} athleteName={athleteName} />
 
       <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
         {/* Breadcrumb */}
@@ -473,3 +473,6 @@ function CalcFromRepsModal({ athleteId, exercises, onClose, onSaved }: {
     </div>
   )
 }
+
+function useState<T>(v: T) { return require('react').useState(v) }
+function useCallback<T extends Function>(fn: T, deps: any[]): T { return require('react').useCallback(fn, deps) }

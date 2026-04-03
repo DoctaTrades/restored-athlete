@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { format } from 'date-fns'
+import CoachSidebar from '@/components/CoachSidebar'
 
 interface Athlete {
   id: string
@@ -162,7 +163,7 @@ function calcTDEE(athlete: Athlete, activityMultiplier: number, cutRatePct: numb
   }
 }
 
-function Sidebar({ active, athleteId, athleteName }: { active: string; athleteId: string; athleteName: string }) {
+: { active: string; athleteId: string; athleteName: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
@@ -357,7 +358,7 @@ export default function NutritionPage({ params }: { params: { id: string } }) {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
-      <Sidebar active="Nutrition" athleteId={params.id} athleteName={athleteName} />
+      <CoachSidebar active="Nutrition" athleteId={params.id} athleteName={athleteName} />
 
       <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
         <div style={{ fontSize: '11px', color: '#94A3B8', marginBottom: '4px' }}>

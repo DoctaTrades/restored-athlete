@@ -2,8 +2,9 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { format, startOfWeek, endOfWeek, addDays } from 'date-fns'
 import { getCurrentPhase } from '@/lib/cycleUtils'
+import CoachSidebar from '@/components/CoachSidebar'
 
-function Sidebar({ active }: { active: string }) {
+: { active: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
@@ -90,7 +91,7 @@ export default async function CoachDashboard() {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
-      <Sidebar active="Athletes" />
+      <CoachSidebar active="Athletes" />
       <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
           <div>

@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import CoachSidebar from '@/components/CoachSidebar'
 
 const WEIGHT_CLASSES = ['55', '61', '67', '73', '81', '89', '96', '102', '109', '109+']
 const LEVELS = ['beginner', 'intermediate', 'advanced', 'elite']
@@ -129,41 +130,7 @@ export default function EditAthletePage({ params }: { params: { id: string } }) 
 
   return (
     <div style={{ minHeight: '100vh', background: '#F4F6F9', display: 'flex' }}>
-      {/* Simple sidebar */}
-      <div style={{ width: '240px', background: '#0F2044', minHeight: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0, display: 'flex', flexDirection: 'column' as const }}>
-        <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '36px', height: '36px', background: '#B8891A', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: 800, color: '#0F2044' }}>R</div>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: '14px', color: '#FFFFFF' }}>Restored Athlete</div>
-              <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' as const, letterSpacing: '0.08em' }}>Coach Portal</div>
-            </div>
-          </div>
-        </div>
-        <nav style={{ padding: '12px' }}>
-          {[
-            { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
-            { label: 'Programming', href: '/coach/programming', icon: '📅' },
-          ].map(link => (
-            <a key={link.href} href={link.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '8px', textDecoration: 'none', marginBottom: '2px', color: 'rgba(255,255,255,0.4)' }}>
-              <span>{link.icon}</span>
-              <span style={{ fontSize: '13px' }}>{link.label}</span>
-            </a>
-          ))}
-          <div style={{ margin: '8px 0 4px', padding: '0 12px' }}>
-            <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase' as const, letterSpacing: '0.08em', marginBottom: '6px' }}>{fullName.split(' ')[0] || 'Athlete'}</div>
-          </div>
-          {[
-            { label: 'Edit Profile', href: `/coach/athletes/${params.id}/edit`, active: true },
-            { label: 'Max Board', href: `/coach/athletes/${params.id}/maxboard`, active: false },
-            { label: 'Nutrition', href: `/coach/athletes/${params.id}/nutrition`, active: false },
-          ].map(link => (
-            <a key={link.href} href={link.href} style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px', borderRadius: '8px', textDecoration: 'none', marginBottom: '2px', background: link.active ? 'rgba(184,137,26,0.15)' : 'transparent', color: link.active ? '#B8891A' : 'rgba(255,255,255,0.5)' }}>
-              <span style={{ fontSize: '13px', fontWeight: link.active ? 600 : 400 }}>{link.label}</span>
-            </a>
-          ))}
-        </nav>
-      </div>
+      <CoachSidebar active="Edit Profile" athleteId={params.id} athleteName={fullName || 'Athlete'} />
 
       <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
         {/* Breadcrumb */}
