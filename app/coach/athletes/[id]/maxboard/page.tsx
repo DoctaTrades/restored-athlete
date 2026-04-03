@@ -192,5 +192,3 @@ function CalcFromRepsModal({ athleteId, exercises, onClose, onSaved }: {
   )
 }
 
-function useState<T>(v: T) { return require('react').useState(v) }
-function useCallback<T extends Function>(fn: T, deps: any[]): T { return require('react').useCallback(fn, deps) }
