@@ -811,5 +811,3 @@ function WeighInModal({ athleteId, onClose, onSaved }: { athleteId: string; onCl
     </div>
   )
 }
-
-function useState<T>(v: T) { return React.useState(v) }
