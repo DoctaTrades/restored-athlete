@@ -4,51 +4,6 @@ import { format, startOfWeek, endOfWeek, addDays } from 'date-fns'
 import { getCurrentPhase } from '@/lib/cycleUtils'
 import CoachSidebar from '@/components/CoachSidebar'
 
-: { active: string }) {
-  const links = [
-    { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
-    { label: 'Programming', href: '/coach/programming', icon: '📅' },
-    { label: 'Nutrition', href: '/coach/nutrition-overview', icon: '🥗' },
-    { label: 'Messages', href: '/coach/messages', icon: '💬' },
-    { label: 'Settings', href: '/coach/settings', icon: '⚙️' },
-  ]
-  return (
-    <div style={{ width: '240px', background: '#0F2044', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0', flexShrink: 0, position: 'fixed', left: 0, top: 0, bottom: 0 }}>
-      <div>
-        <div style={{ padding: '24px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <div style={{ width: '36px', height: '36px', background: '#B8891A', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '15px', fontWeight: 800, color: '#0F2044', flexShrink: 0 }}>R</div>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: '14px', color: '#FFFFFF' }}>Restored Athlete</div>
-              <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '0.08em' }}>Coach Portal</div>
-            </div>
-          </div>
-        </div>
-        <nav style={{ padding: '12px 12px' }}>
-          {links.map(link => (
-            <a key={link.href} href={link.href} style={{
-              display: 'flex', alignItems: 'center', gap: '10px', padding: '10px 12px',
-              borderRadius: '8px', textDecoration: 'none', marginBottom: '2px',
-              background: active === link.label ? 'rgba(184,137,26,0.15)' : 'transparent',
-              color: active === link.label ? '#B8891A' : 'rgba(255,255,255,0.5)',
-              transition: 'all 0.15s'
-            }}>
-              <span style={{ fontSize: '16px' }}>{link.icon}</span>
-              <span style={{ fontSize: '13px', fontWeight: active === link.label ? 600 : 400 }}>{link.label}</span>
-            </a>
-          ))}
-        </nav>
-      </div>
-      <div style={{ padding: '16px 20px', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-        <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px' }}>Viewing As</div>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          <div style={{ padding: '6px 14px', background: '#B8891A', borderRadius: '6px', fontSize: '12px', fontWeight: 700, color: '#0F2044' }}>Coach</div>
-          <a href="/athlete/dashboard" style={{ padding: '6px 14px', background: 'transparent', borderRadius: '6px', fontSize: '12px', fontWeight: 400, color: 'rgba(255,255,255,0.4)', textDecoration: 'none' }}>Athlete</a>
-        </div>
-      </div>
-    </div>
-  )
-}
 
 function CycleBadge({ athlete }: { athlete: any }) {
   if (athlete.sex !== 'female') return null
