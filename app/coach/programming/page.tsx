@@ -261,3 +261,5 @@ function AddSessionModal({ date, athleteId, athleteName, onClose, onSaved }: {
     </div>
   )
 }
+
+function useState<T>(v: T) { return require('react').useState(v) }

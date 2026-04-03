@@ -1,12 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { format, startOfWeek, endOfWeek, addDays } from 'date-fns'
+import { getCurrentPhase } from '@/lib/cycleUtils'
 
 function Sidebar({ active }: { active: string }) {
   const links = [
     { label: 'Athletes', href: '/coach/dashboard', icon: '👥' },
     { label: 'Programming', href: '/coach/programming', icon: '📅' },
     { label: 'Nutrition', href: '/coach/nutrition-overview', icon: '🥗' },
+    { label: 'Messages', href: '/coach/messages', icon: '💬' },
+    { label: 'Settings', href: '/coach/settings', icon: '⚙️' },
   ]
   return (
     <div style={{ width: '240px', background: '#0F2044', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '0', flexShrink: 0, position: 'fixed', left: 0, top: 0, bottom: 0 }}>
@@ -46,6 +49,18 @@ function Sidebar({ active }: { active: string }) {
   )
 }
 
+function CycleBadge({ athlete }: { athlete: any }) {
+  if (athlete.sex !== 'female') return null
+  if (!athlete.cycle_tracking_enabled || !athlete.last_period_start) return null
+  const phase = getCurrentPhase(new Date(athlete.last_period_start), athlete.cycle_length_days || 28)
+  return (
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', padding: '2px 8px', borderRadius: '20px', background: `${phase.color}15`, border: `1px solid ${phase.color}40`, fontSize: '11px', fontWeight: 700, color: phase.color }}>
+      <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: phase.color, display: 'inline-block', flexShrink: 0 }} />
+      {phase.badge}
+    </span>
+  )
+}
+
 export default async function CoachDashboard() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
@@ -77,7 +92,6 @@ export default async function CoachDashboard() {
     <div style={{ display: 'flex', minHeight: '100vh', background: '#F4F6F9' }}>
       <Sidebar active="Athletes" />
       <div style={{ marginLeft: '240px', flex: 1, padding: '32px' }}>
-        {/* Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
           <div>
             <div style={{ fontSize: '11px', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '4px' }}>Athletes</div>
@@ -87,7 +101,6 @@ export default async function CoachDashboard() {
           <a href="/coach/athletes/new" style={{ padding: '10px 20px', background: '#B8891A', borderRadius: '8px', fontSize: '13px', fontWeight: 700, color: '#FFFFFF', textDecoration: 'none' }}>+ Invite Athlete</a>
         </div>
 
-        {/* Stats */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '28px' }}>
           {[
             { label: 'Active Athletes', value: athletes?.length || 0, color: '#0F2044' },
@@ -101,7 +114,6 @@ export default async function CoachDashboard() {
           ))}
         </div>
 
-        {/* Athletes list */}
         <div style={{ ...card, marginBottom: '28px' }}>
           {!athletes?.length ? (
             <div style={{ padding: '48px', textAlign: 'center', color: '#94A3B8' }}>
@@ -115,19 +127,24 @@ export default async function CoachDashboard() {
                   {(athlete.profile?.full_name || 'A')[0]}
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontWeight: 700, fontSize: '15px', color: '#0F2044' }}>{athlete.profile?.full_name || athlete.profile?.email}</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+                    <span style={{ fontWeight: 700, fontSize: '15px', color: '#0F2044' }}>{athlete.profile?.full_name || athlete.profile?.email}</span>
+                    <CycleBadge athlete={athlete} />
+                  </div>
                   <div style={{ fontSize: '12px', color: '#94A3B8', marginTop: '2px' }}>
                     {athlete.weight_class ? `${athlete.weight_class}kg` : '—'} · {athlete.competition_level ? athlete.competition_level.charAt(0).toUpperCase() + athlete.competition_level.slice(1) : 'Level not set'}
                     {athlete.nutrition_goal ? ` · ${athlete.nutrition_goal.replace('_', ' ')}` : ''}
                   </div>
                 </div>
-                <a href={`/coach/programming`} style={{ fontSize: '12px', color: '#B8891A', textDecoration: 'none', fontWeight: 600 }}>View Program →</a>
+                <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                  <a href="/coach/messages" style={{ fontSize: '13px', color: '#64748B', textDecoration: 'none', padding: '5px 10px', border: '1px solid #E2E8F0', borderRadius: '6px' }}>💬</a>
+                  <a href="/coach/programming" style={{ fontSize: '12px', color: '#B8891A', textDecoration: 'none', fontWeight: 600 }}>View Program →</a>
+                </div>
               </div>
             ))
           )}
         </div>
 
-        {/* Week schedule */}
         <div style={card}>
           <div style={{ padding: '16px 20px', borderBottom: '1px solid #F1F5F9', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <h2 style={{ fontSize: '15px', fontWeight: 700, color: '#0F2044' }}>This Week</h2>

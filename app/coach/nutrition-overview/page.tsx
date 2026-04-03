@@ -111,6 +111,7 @@ export default async function CoachNutritionOverview() {
             { label: 'Athletes', href: '/coach/dashboard' },
             { label: 'Programming', href: '/coach/programming' },
             { label: 'Nutrition', href: '/coach/nutrition-overview', active: true },
+            { label: 'Settings', href: '/coach/settings' },
           ].map(link => (
             <a key={link.href} href={link.href} style={{ fontSize: '13px', fontWeight: (link as any).active ? 700 : 500, color: (link as any).active ? '#B8891A' : '#64748B', textDecoration: 'none', borderBottom: (link as any).active ? '2px solid #B8891A' : '2px solid transparent', paddingBottom: '2px' }}>{link.label}</a>
           ))}
